@@ -32,7 +32,7 @@ export default new vuex.Store({
     }
   },
   actions: {
-    register({ commit }, payload) {
+    userRegister({ commit }, payload) {
       auth.post('register', payload)
         .then(res => {
           commit('setUser', res.data)
@@ -41,7 +41,7 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    login({ commit }, payload) {
+    userLogin({ commit }, payload) {
       auth.post('login', payload)
         .then(res => {
           commit('setUser', res.data)
@@ -50,7 +50,7 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    logout({ commit }) {
+    userLogout({ commit }) {
       auth.delete('logout')
         .then(res => {
           commit('clearUser')
