@@ -38,6 +38,12 @@ app.use((req, res, next) => {
   next()
 })
 
+let shifts = require('./server-assets/routes/shifts')
+let notes = require('./server-assets/routes/notes')
+
+app.use(shifts.router)
+app.use(notes.router)
+
 app.get('*', (req, res, next) => {
   res.status(404).send({
     error: 'No matching routes'

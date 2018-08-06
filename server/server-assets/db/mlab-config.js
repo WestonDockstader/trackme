@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
 var connectionString = 'mongodb://masterUser:guest1@ds113522.mlab.com:13522/trackme'
 var connection = mongoose.connection
 
-mongoose.connect(connectionString)
+mongoose.connect(connectionString, { useNewUrlParser: true })
 
 connection.on('error', err => {
   console.log('ERROR FROM DATABASE: ', err)
