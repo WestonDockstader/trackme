@@ -6,7 +6,7 @@ var cors = require('cors')
 var port = process.env.PORT || 3000
 
 
-var whitelist = ['http://localhost:8080', 'http://kanban-dock.herokuapp.com'];
+var whitelist = ['http://localhost:8080']; // after heroku is ready add to whitelist
 var corsOptions = {
   origin: function (origin, callback) {
     var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
