@@ -12,9 +12,9 @@ router.post('/auth/register', (req, res) => {
   }
   req.body.password = Users.generateHash(req.body.password)
   Users.create(req.body)
-  .then(user => {
-    delete user._doc.password
-    req.session.uid = user._id
+    .then(user => {
+      delete user._doc.password
+      req.session.uid = user._id
       res.send(user)
     })
     .catch(err => {
@@ -24,34 +24,34 @@ router.post('/auth/register', (req, res) => {
 
 router.post('/auth/login', (req, res) => {
   Users.findOne({
-      email: req.body.email
-    })
+    email: req.body.email
+  })
     .then(user => {
       user.validatePassword(req.body.password)
-        .then(valid=>{
-          if(!valid){
+        .then(valid => {
+          if (!valid) {
             return res.status(400).send(loginError)
           }
           delete user._doc.password
           req.session.uid = user._id;
-          user.password=null;
+          user.password = null;
           res.status(200).send({
             message: 'Successfully logged in',
             session: req.session.uid,
             data: user
           })
         })
-        .catch(err=>{
-          res.status(400).send({loginError,Msg: "Second Catch"})
+        .catch(err => {
+          res.status(400).send({ loginError, Msg: "Second Catch" })
         })
     })
     .catch(err => {
       res.status(400).send(loginError)
     })
-  })
-  
-  router.delete('/auth/logout', (req, res) => {
-    req.session.destroy(err => {
+})
+
+router.delete('/auth/logout', (req, res) => {
+  req.session.destroy(err => {
     if (err) {
       return res.send(err)
     }
@@ -61,7 +61,7 @@ router.post('/auth/login', (req, res) => {
   })
 })
 
-router.get('/authenticate', (req, res) => {
+router.get('/auth/authenticate', (req, res) => {
   Users.findById(req.session.uid)
     .then(user => {
       if (!user) {

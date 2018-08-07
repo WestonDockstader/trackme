@@ -23,9 +23,12 @@
             </div>
           </form>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer d-flex">
+          <span class="mr-auto pointer" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">
+            <p>Already a User? Click Here to Login!</p>
+          </span>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submits" class="btn btn-primary" @click="userRegister" data-dismiss="modal">Register</button>
+          <button type="submits" class="btn btn-success" @click="userRegister" data-dismiss="modal">Register</button>
         </div>
       </div>
     </div>
@@ -35,8 +38,8 @@
 <script>
   export default {
     name: 'Register',
-    data(){
-      return{
+    data() {
+      return {
         register: {
           username: "",
           email: "",
@@ -53,4 +56,7 @@
 </script>
 
 <style>
+  .pointer {
+    cursor: pointer;
+  }
 </style>

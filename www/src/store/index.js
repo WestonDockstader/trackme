@@ -44,7 +44,8 @@ export default new vuex.Store({
     userLogin({ commit }, payload) {
       auth.post('login', payload)
         .then(res => {
-          commit('setUser', res.data)
+          console.log(res.data)
+          commit('setUser', res.data.data)
         })
         .catch(err => {
           console.log(err)
@@ -54,6 +55,15 @@ export default new vuex.Store({
       auth.delete('logout')
         .then(res => {
           commit('clearUser')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    authenticate({ commit }) {
+      auth.get('authenticate')
+        .then(res => {
+          commit('setUser', res.data)
         })
         .catch(err => {
           console.log(err)

@@ -19,9 +19,12 @@
             </div>
           </form>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer d-flex">
+          <span class="mr-auto pointer" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">
+            <p>Not a User? Sign up Here!</p>
+          </span>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" @click="userLogin" data-dismiss="modal">Login</button>
+          <button type="submit" class="btn btn-success" @click="userLogin" data-dismiss="modal">Login</button>
         </div>
       </div>
     </div>
@@ -41,7 +44,7 @@
     },
     methods: {
       userLogin() {
-        this.$store.dispatch('login', this.login)
+        this.$store.dispatch('userLogin', this.login)
       }
     }
   }
