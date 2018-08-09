@@ -16,7 +16,7 @@
         <input type="number" class="form-control" id="shiftEndTime" v-model="newShift.end" placeholder="End Time">
         <small id="TimeHelp" class="form-text text-muted">Please enter military time ex. 1300</small>
       </div>
-      <button type="submit" class="btn btn-success">Submit</button>
+      <button @click="CreateShift" class="btn btn-success">Submit</button>
     </form>
   </div>
 </template>
@@ -35,7 +35,7 @@
     },
     methods: {
       CreateShift() {
-        Console.log(this.newShift)
+        console.log(this.newShift)
       }
     }
   }

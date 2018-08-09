@@ -21,7 +21,7 @@
         </div>
         <div class="modal-footer d-flex">
           <span class="mr-auto pointer" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">
-            <p>Not a User? Sign up Here!</p>
+            <p class="text-success">Not a User? Sign up Here!</p>
           </span>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success" @click="userLogin" data-dismiss="modal">Login</button>
@@ -49,3 +49,9 @@
     }
   }
 </script>
+
+<style>
+  btn {
+    margin: .5rem;
+  }
+</style>

@@ -6,7 +6,8 @@ let schemName = 'shift'
 let shift = new Schema({
   date: { type: Date, required: true },
   start: { type: Number, required: true },
-  end: { type: Number, required: true },
+  end: { type: Number },
+  breaks: { type: Array },
   author: { type: ObjectId, ref: 'User', required: true }
 })
 

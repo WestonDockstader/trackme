@@ -25,7 +25,7 @@
         </div>
         <div class="modal-footer d-flex">
           <span class="mr-auto pointer" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">
-            <p>Already a User? Click Here to Login!</p>
+            <p class="text-success">Already a User? Click Here to Login!</p>
           </span>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="submits" class="btn btn-success" @click="userRegister" data-dismiss="modal">Register</button>
