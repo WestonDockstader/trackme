@@ -38,9 +38,11 @@ app.use((req, res, next) => {
   next()
 })
 
+let payperiods = require('./server-assets/routes/payperiods')
 let shifts = require('./server-assets/routes/shifts')
 let notes = require('./server-assets/routes/notes')
 
+app.use(payperiods.router)
 app.use(shifts.router)
 app.use(notes.router)
 

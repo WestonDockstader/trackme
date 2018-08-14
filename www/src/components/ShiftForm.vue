@@ -1,23 +1,36 @@
 <template>
-  <div class="col">
-    <form v:on-sumbit.prevent="CreateShift">
-      <h2>Add Shift Form</h2>
-      <div class="form-group">
-        <label for="date">Shift Date</label>
-        <input type="date" class="form-control" id="shiteDate" aria-describedby="dateHelp" v-model="newShift.date" placeholder="Enter Shift Date">
+  <div class="modal fade" id="createShiftModal" tabindex="-1" role="dialog" aria-labelledby="createShiftModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createShiftModalCenterTitle">Create Shift</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form v-on:submit.prevent="createShift">
+            <div class="form-group">
+              <input type="date" name="shiftDate" v-model="newShift.date" class="form-control" id="shiftDate" placeholder="Shift Date"
+                required>
+            </div>
+            <div class="form-group">
+              <input type="number" name="shiftStartTime" v-model="newShift.start" aria-describedby="TimeHelp" class="form-control" id="shiftStartTime"
+                placeholder="Start Time">
+              <small id="TimeHelp" class="form-text text-muted">Please enter military time ex. 1300</small>
+            </div>
+            <div class="form-group">
+              <input type="number" name="shiftEndTime" v-model="newShift.start" class="form-control" id="shiftEndTime" placeholder="Password">
+              <small id="TimeHelp" class="form-text text-muted">Please enter military time ex. 1300</small>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer d-flex">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" @click="createShift" data-dismiss="modal">Create</button>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="start">Start Time</label>
-        <input type="number" class="form-control" id="shiftStartTime" aria-describedby="TimeHelp" v-model="newShift.start" placeholder="Start Time">
-        <small id="TimeHelp" class="form-text text-muted">Please enter military time ex. 1300</small>
-      </div>
-      <div class="form-group">
-        <label for="end">End Time</label>
-        <input type="number" class="form-control" id="shiftEndTime" v-model="newShift.end" placeholder="End Time">
-        <small id="TimeHelp" class="form-text text-muted">Please enter military time ex. 1300</small>
-      </div>
-      <button @click="CreateShift" class="btn btn-success">Submit</button>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -34,7 +47,7 @@
       }
     },
     methods: {
-      CreateShift() {
+      createShift() {
         console.log(this.newShift)
       }
     }
@@ -42,11 +55,4 @@
 </script>
 
 <style scoped>
-  form {
-    background-color: darkslategray;
-    margin: 1rem;
-    padding: 2rem;
-    max-width: 400px;
-    border-radius: 5px;
-  }
 </style>

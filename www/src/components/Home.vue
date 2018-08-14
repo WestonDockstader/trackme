@@ -18,26 +18,40 @@
       </div>
     </div>
     <div class="row">
-      <div class="col">
-        <button v-if="user.username" @click="toggle">Add Shift</button>
-        <shiftForm v-if="show"></shiftForm>
+      <div v-if="user.username" class="col">
+        <button class="btn btn-outline-success" data-toggle="modal" data-target="#createShiftModal">Add Shift</button>
+        <button class="btn btn-outline-success" data-toggle="modal" data-target="#createPayPeriodModal">Create Pay Period</button>
       </div>
     </div>
     <login></login>
     <register></register>
+    <shiftForm></shiftForm>
+    <period></period>
+    <!-- Payperiod table -->
+    <div class="row">
+      <div class="col paytable">
+        <div v-if="user.username" v-for="payperiod in payPeriods" class="payperiod">
+          <p>{{payperiod.startDate}}</p>
+          <p>{{payperiod.endDate}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  import router from '../router'
   import login from './Login'
   import register from './Register'
   import shiftForm from './ShiftForm'
+  import period from './Period'
   export default {
     name: 'Home',
     components: {
       login,
       register,
-      shiftForm
+      shiftForm,
+      period
     },
     data() {
       return {
@@ -47,14 +61,14 @@
     computed: {
       user() {
         return this.$store.state.user
+      },
+      payPeriods() {
+        return this.$store.state.payPeriods
       }
     },
     methods: {
       logout() {
         this.$store.dispatch('userLogout')
-      },
-      toggle() {
-        this.show = this.show ? false : true
       }
     }
   }

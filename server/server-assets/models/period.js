@@ -4,8 +4,8 @@ let ObjectId = Schema.Types.ObjectId
 let schemName = 'period'
 
 let period = new Schema({
-  start: { type: Date, required: true },
-  end: { type: Date, required: true },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
   author: { type: ObjectId, ref: 'User', required: true }
 })
 

@@ -19,19 +19,37 @@ let auth = axios.create({
   withCredentials: true
 })
 
+function formatDates(array) {
+  array.ForEach(obj => {
+    obj.startDate = obj.startDate.slice(0, 10);
+    obj.endDate = obj.endDate.slice(0, 10);
+  })
+  return array
+}
+
 export default new vuex.Store({
   state: {
-    user: {}
+    user: {},
+    payPeriods: []
   },
   mutations: {
+    //// Authentication ///////
     setUser(state, payload) {
       state.user = payload
     },
     clearUser(state) {
       state.user = {}
+    },
+    logout(state) {
+      state.user = {}
+    },
+    ///// End Authentication /////
+    setPayPeriods(state, payload) {
+      state.payPeriods = formatDates(payload)
     }
   },
   actions: {
+    /////  Authentication //////////////
     userRegister({ commit }, payload) {
       auth.post('register', payload)
         .then(res => {
@@ -41,7 +59,7 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    userLogin({ commit }, payload) {
+    userLogin({ commit, dispatch }, payload) {
       auth.post('login', payload)
         .then(res => {
           console.log(res.data)
@@ -60,10 +78,31 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    authenticate({ commit }) {
+    authenticate({ commit, dispatch }) {
       auth.get('authenticate')
         .then(res => {
           commit('setUser', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    /////// End Authentication /////////
+
+    /////// Pay Periods /////////////////////
+    getPayPeriods({ commit, state }) {
+      api.get('periods', state.user._id)
+        .then(res => {
+          commit('setPayPeriods', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    createPayPeriod({ dispatch }, payload) {
+      api.post('periods', payload)
+        .then(res => {
+          dispatch('getPayPeriods')
         })
         .catch(err => {
           console.log(err)
