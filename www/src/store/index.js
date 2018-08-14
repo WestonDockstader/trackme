@@ -20,7 +20,7 @@ let auth = axios.create({
 })
 
 function formatDates(array) {
-  array.ForEach(obj => {
+  array.forEach(obj => {
     obj.startDate = obj.startDate.slice(0, 10);
     obj.endDate = obj.endDate.slice(0, 10);
   })
@@ -87,11 +87,11 @@ export default new vuex.Store({
           console.log(err)
         })
     },
-    /////// End Authentication /////////
+    /////// End Authentication //////////////
 
     /////// Pay Periods /////////////////////
     getPayPeriods({ commit, state }) {
-      api.get('periods', state.user._id)
+      api.get('periods/' + state.user._id)
         .then(res => {
           commit('setPayPeriods', res.data)
         })
@@ -108,5 +108,7 @@ export default new vuex.Store({
           console.log(err)
         })
     }
+
+    /////// End Pay Periods //////////////////
   }
 })

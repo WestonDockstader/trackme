@@ -12,6 +12,7 @@ router.get('/api/notes/:id?', (req, res) => {
         res.status(400).send(err)
       })
   }
+  // @ts-ignore
   Notes.find({ author: req.session.uid })
     .then(notes => {
       res.status(200).send(notes)
@@ -23,6 +24,7 @@ router.get('/api/notes/:id?', (req, res) => {
 
 // Create note
 router.post('/api/notes', (req, res) => {
+  // @ts-ignore
   req.body.author = req.session.uid
   Notes.create(req.body)
     .then(newComment => {

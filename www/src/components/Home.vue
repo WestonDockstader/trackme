@@ -30,7 +30,7 @@
     <!-- Payperiod table -->
     <div class="row">
       <div class="col paytable">
-        <div v-if="user.username" v-for="payperiod in payPeriods" class="payperiod">
+        <div v-if="user.username" v-for="payperiod in payPeriods" class="payperiod flex-row">
           <p>{{payperiod.startDate}}</p>
           <p>{{payperiod.endDate}}</p>
         </div>
@@ -57,6 +57,16 @@
       return {
         show: false
       }
+    },
+    watch: {
+      user: {
+        handler(user) {
+          if (user.username) {
+            this.$store.dispatch('getPayPeriods')
+          }
+        }
+      },
+      deep: true
     },
     computed: {
       user() {

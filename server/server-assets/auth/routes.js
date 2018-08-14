@@ -10,6 +10,7 @@ router.post('/auth/register', (req, res) => {
       error: 'Password must be at least 6 characters'
     })
   }
+  // @ts-ignore
   req.body.password = Users.generateHash(req.body.password)
   Users.create(req.body)
     .then(user => {

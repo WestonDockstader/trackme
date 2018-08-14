@@ -12,6 +12,7 @@ router.get('/api/shifts/:id?', (req, res) => {
         res.status(400).send(err)
       })
   }
+  // @ts-ignore
   Shifts.find({ author: req.session.uid })
     .then(shifts => {
       res.status(200).send(shifts)
@@ -23,6 +24,7 @@ router.get('/api/shifts/:id?', (req, res) => {
 
 // This path is for creating a shift
 router.post('/api/shifts', (req, res) => {
+  // @ts-ignore
   req.body.author = req.session.uid
   Shifts.create(req.body)
     .then(newShift => {

@@ -3,6 +3,7 @@ var Periods = require('../models/period')
 
 // Get payperiod by id
 router.get('/api/periods/:id', (req, res) => {
+  // @ts-ignore
   Periods.find({ author: req.session.uid })
     .then(periods => {
       res.status(200).send(periods)
@@ -14,6 +15,7 @@ router.get('/api/periods/:id', (req, res) => {
 
 // Create payperiod
 router.post('/api/periods', (req, res) => {
+  // @ts-ignore
   req.body.author = req.session.uid
   console.log(req.body)
   Periods.create(req.body)
