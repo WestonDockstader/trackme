@@ -139,6 +139,7 @@ export default new vuex.Store({
       api.delete('periods/' + payload)
         .then(() => {
           dispatch('getPayPeriods')
+          dispatch('cascadeShifts')
         })
         .catch(err => {
           console.log(err)
@@ -183,6 +184,15 @@ export default new vuex.Store({
         .catch(err => {
           console.log(err)
         })
+    },
+    cascadeShifts({ dispatch }, payload) {
+      api.delete('shifts/cascade/' + payload)
+        .then(() => {
+          dispatch('getShifts')
+        })
+        .catch(err => {
+          console.log(err)
+        }) /// this still needs to be tested
     }
 
     /////// End Shifts ///////////////////////////

@@ -38,7 +38,7 @@ router.post('/api/shifts', (req, res) => {
 // This path is for editing a shift
 router.put('/api/shifts/:id', (req, res) => {
   Shifts.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then(shift => {
+    .then(() => {
       res.status(200).send({ message: "Shift Updated" })
     })
     .catch(err => {
@@ -49,8 +49,18 @@ router.put('/api/shifts/:id', (req, res) => {
 // This path is for Deleting a shift
 router.delete('/api/shifts/:id', (req, res) => {
   Shifts.findByIdAndRemove(req.params.id)
-    .then(shift => {
+    .then(() => {
       res.status(200).send({ message: 'Shift Deleted' })
+    })
+    .catch(err => {
+      res.status(400).send(err)
+    })
+})
+
+router.delete('api/shifts/cascade/:id', (req, res) => {
+  Shifts.deleteMany({ parentId: req.params.id })
+    .then(() => {
+      res.status(200).send({ message: 'Successfully Deleted Shifts from payperiod' })
     })
     .catch(err => {
       res.status(400).send(err)

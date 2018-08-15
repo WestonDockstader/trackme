@@ -13,6 +13,7 @@ let shift = new Schema({
   start: { type: Number, required: true },
   end: { type: Number },
   breaks: { type: Array },
+  title: { type: String },
   notes: [noteSchema],
   parentId: { type: String, required: true },
   author: { type: ObjectId, ref: 'User', required: true }

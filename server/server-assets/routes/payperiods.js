@@ -41,7 +41,7 @@ router.put('/api/periods/:id', (req, res) => {
 // Delete payperiod
 router.delete('/api/periods/:id', (req, res) => {
   Periods.findByIdAndRemove(req.params.id)
-    .then(period => {
+    .then(() => {
       res.status(200).send({ message: 'successfully deleted' })
     })
     .catch(err => {
