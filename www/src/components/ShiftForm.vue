@@ -47,7 +47,7 @@
       }
     },
     methods: {
-      createShift() {
+      createShift(parentId) {
         console.log(this.newShift)
       }
     }

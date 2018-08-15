@@ -27,10 +27,25 @@ function formatDates(array) {
   return array
 }
 
+function createShiftDictionary(array) {
+  let out = {}
+  array.forEach(obj => {
+    if (!out[obj.parentId]) {
+      out[obj.parentId] = []
+      out[obj.parentId].push(obj)
+    }
+    else {
+      out[obj.parentId].push(obj)
+    }
+  })
+  return out
+}
+
 export default new vuex.Store({
   state: {
     user: {},
-    payPeriods: []
+    payPeriods: [],
+    shifts: {}
   },
   mutations: {
     //// Authentication ///////
@@ -46,6 +61,9 @@ export default new vuex.Store({
     ///// End Authentication /////
     setPayPeriods(state, payload) {
       state.payPeriods = formatDates(payload)
+    },
+    setShifts(state, payload) {
+      state.shifts = createShiftDictionary(payload)
     }
   },
   actions: {
@@ -101,14 +119,72 @@ export default new vuex.Store({
     },
     createPayPeriod({ dispatch }, payload) {
       api.post('periods', payload)
-        .then(res => {
+        .then(() => {
           dispatch('getPayPeriods')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    editPayPeriod({ dispatch }, payload) {
+      api.put('periods/' + payload.id, payload)
+        .then(() => {
+          dispatch('getPayPeriods')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    deletePayPeriod({ dispatch }, payload) {
+      api.delete('periods/' + payload)
+        .then(() => {
+          dispatch('getPayPeriods')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+
+    /////// End Pay Periods //////////////////
+
+    /////// Shifts ///////////////////////////
+    getShifts({ commit, state }) {
+      api.get('shifts/' + state.user._id)
+        .then(res => {
+          commit('setShifts', res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    addShift({ dispatch }, payload) {
+      api.post('shifts', payload)
+        .then(res => {
+          dispatch('getShifts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    editShift({ dispatch }, payload) {
+      api.put('shifts/' + payload.id, payload)
+        .then(() => {
+          dispatch('getShifts')
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    deleteShift({ dispatch }, payload) {
+      api.delete('shifts/' + payload)
+        .then(() => {
+          dispatch('getShifts')
         })
         .catch(err => {
           console.log(err)
         })
     }
 
-    /////// End Pay Periods //////////////////
+    /////// End Shifts ///////////////////////////
   }
 })
