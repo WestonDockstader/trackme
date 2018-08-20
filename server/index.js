@@ -39,10 +39,8 @@ app.use((req, res, next) => {
 })
 
 let payperiods = require('./server-assets/routes/payperiods')
-let shifts = require('./server-assets/routes/shifts')
 
 app.use(payperiods.router)
-app.use(shifts.router)
 
 app.get('*', (req, res, next) => {
   res.status(404).send({

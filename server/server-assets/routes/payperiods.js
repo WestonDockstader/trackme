@@ -1,7 +1,7 @@
 var router = require('express').Router()
 var Periods = require('../models/period')
 
-// Get payperiod by id
+// Get payperiod by user id
 router.get('/api/periods/:id', (req, res) => {
   // @ts-ignore
   Periods.find({ author: req.session.uid })
@@ -49,4 +49,21 @@ router.delete('/api/periods/:id', (req, res) => {
     })
 })
 
+// Create shift
+router.post('/api/periods/:id/shifts', (req, res) => {
+  Periods.findById(req.params.id)
+    .then(period => {
+      period.shifts.addtoset(req.body)
+      period.save()
+        .then(() => {
+          res.send(200).send({ message: 'Successfully added shift' })
+        })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+})
+
+// Edit shift
+router.put('/api/periods/:id/shifts/:id', )
 module.exports = { router }
